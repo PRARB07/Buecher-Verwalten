@@ -30,7 +30,6 @@ CREATE TABLE Buch (
     Autor VARCHAR(255),
     Erscheinungsdatum DATE,
     Beschreibung TEXT,
-    Genre INT,
     AusleihungID INT,
     PRIMARY KEY (BuchID),
     FOREIGN KEY (AusleihungID) REFERENCES Ausleihung(AusleihungID)
