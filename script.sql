@@ -1,37 +1,33 @@
 CREATE DATABASE Buecher_Verwalten;
 
 CREATE TABLE Genre (
-    GenreID INT NOT NULL,
-    Genre VARCHAR(50),
-    PRIMARY KEY (GenreID)
+    GenreID INT AUTO_INCREMENT PRIMARY KEY,
+    Genre VARCHAR(50)
 );
 
 CREATE TABLE Kunde (
-    KundenID INT NOT NULL, 
+    KundenID INT AUTO_INCREMENT PRIMARY KEY, 
     Vorname VARCHAR(50),
     Nachname VARCHAR(50),
     Ort VARCHAR(50),
     Straße VARCHAR(50),
-    PLZ VARCHAR(5),
-    PRIMARY KEY (KundenID)
+    PLZ VARCHAR(5)
 );
 
 CREATE TABLE Ausleihung (
-    AusleihungID INT NOT NULL,
+    AusleihungID INT AUTO_INCREMENT PRIMARY KEY,
     Ausleihdatum DATETIME,
     KundenID INT,
-    PRIMARY KEY (AusleihungID),
     FOREIGN KEY (KundenID) REFERENCES Kunde(KundenID)
 );
 
 CREATE TABLE Buch (
-    BuchID INT NOT NULL,
+    BuchID INT AUTO_INCREMENT PRIMARY KEY,
     Titel VARCHAR(255),
     Autor VARCHAR(255),
     Erscheinungsdatum DATE,
     Beschreibung TEXT,
     AusleihungID INT,
-    PRIMARY KEY (BuchID),
     FOREIGN KEY (AusleihungID) REFERENCES Ausleihung(AusleihungID)
 );
 
