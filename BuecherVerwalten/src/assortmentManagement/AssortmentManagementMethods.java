@@ -46,30 +46,50 @@ public class AssortmentManagementMethods {
 
 
 
-    public void insertBook(String title, String author, LocalDate publicationDate, String description, int genreID, int lendingID) throws SQLException {
-        String bookID;
-        sqlQuery = "INSERT INTO Buch(BuchID, Titel, Autor, Erscheinungsdatum, Beschreibung) VALUES (?,?,?,?,?,?);";
-        String sqlQuerySelect = "SELECT BuchID FROM Buch"
-
+    public void insertBook(String title, String author, LocalDate publicationDate, String description,int[] genreID, int lendingID) throws SQLException {
+        int bookID = 0;
+        sqlQuery = "INSERT INTO Buch(Titel, Autor, Erscheinungsdatum, Beschreibung) VALUES (?,?,?,?);";
 
         //Verbindung und Abfrage der Datenbank
         try (Connection conn = DriverManager.getConnection(this.url, this.user, this.password);
-             PreparedStatement pstmt = conn.prepareStatement(sqlQuery);
-             PreparedStatement pstmt2 = conn.prepareStatement(sqlQuery2))
+             PreparedStatement pstmt = conn.prepareStatement(sqlQuery))
              {
-
+                 //Setzen der Parameter für das Insert
                  pstmt.setString(1,title);
                  pstmt.setString(2,author);
                  pstmt.setDate(3,java.sql.Date.valueOf(publicationDate));
                  pstmt.setString(4,description);
-                 pstmt.setInt(5,genreID);
-                 pstmt.setInt(6,lendingID);
-
+ //                pstmt.setInt(5,lendingID);
                  pstmt.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
 
-                 pstmt2.setInt(1,bookID);
-                 pstmt2.setInt(2,lendingID);
 
+        String sqlQuerySelect = "SELECT BuchID FROM Buch ORDER BY BuchID DESC LIMIT 1";
+        //Die BuchID mithilfe von einem SELECT herausfinden
+        try(Connection conn = DriverManager.getConnection(this.url, this.user, this.password);
+            java.sql.Statement stmt = conn.createStatement()){
+            ResultSet rs = stmt.executeQuery(sqlQuerySelect);
+            while(rs.next()) {
+                bookID = rs.getInt("BuchID");
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+
+        String insertGenre2BookQuery = "INSERT INTO Genre2Buch(GenreID,BuchID) VALUES(?,?)";
+        //INSERT in die Genre2Book Tabelle
+        try (Connection conn = DriverManager.getConnection(this.url, this.user, this.password);
+             PreparedStatement pstmt2 = conn.prepareStatement(insertGenre2BookQuery))
+        {
+            //Setzen der Parameter für das Insert
+            for(int i = 0; i < genreID.length; i++){
+                pstmt2.setInt(1,i);
+                pstmt2.setInt(2,bookID);
+                pstmt2.executeUpdate();
+            }
 
         }catch(SQLException e){
             e.printStackTrace();
