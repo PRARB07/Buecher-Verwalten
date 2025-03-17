@@ -3,4 +3,4 @@
 
 Das Ausleihen und Verwalten von Bücher.
 
-Diese Software braucht MySQL.
+Diese Software braucht MySQL..s
