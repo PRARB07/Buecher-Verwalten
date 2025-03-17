@@ -1,4 +1,4 @@
 # Buecher-Verwalten
 Übungsprojekt von Lars und Pius
 
-Das ausleihen und Verwalten von Bücher.
+Das ausleihen und verwalten von Bücher.
