@@ -31,7 +31,7 @@ CREATE TABLE Buch (
     Erscheinungsdatum DATE,
     Beschreibung TEXT,
     AusleihungID INT,
-    PRIMARY KEY (BuchID),
+    PRIMARY KEY(BuchID),
     FOREIGN KEY (AusleihungID) REFERENCES Ausleihung(AusleihungID)
 );
 
