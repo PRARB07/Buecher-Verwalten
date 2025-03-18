@@ -68,13 +68,76 @@ public class LendingMethods {
             pstmt3.setInt(1,ausleihungIDSelect);
             pstmt3.setInt(2,bookID);
             pstmt3.executeUpdate();
-
-
-
-
-
-
+        }catch(SQLException e){
+            e.printStackTrace();
         }
     }
+
+
+
+
+
+
+
+
+    //Ein Buch wird zurück gegeben
+    public void returnBook(int bookID) throws SQLException {
+        int ausleihungIDSelect = 0;
+        sqlQuery = "SELECT ausleihungID FROM Buch WHERE BuchID = ?";
+
+        int kundenIDSelect = 0;
+        sqlQuery2 = "SELECT KundenID FROM Ausleihung WHERE AusleihungID = ?";
+
+        String sqlQuery3 = "DELETE FROM Kunde WHERE KundenID = ?";
+
+        String sqlQuery4 = "DELETE FROM Ausleihung WHERE AusleihungID = ?";
+
+        String sqlQuery5 = "UPDATE Buch SET AusleihungID = null WHERE BuchID = ?";
+
+
+        try(Connection conn = DriverManager.getConnection(this.url,this.user,this.password);
+            PreparedStatement pstmt1 = conn.prepareStatement(sqlQuery);
+            PreparedStatement pstmt2 = conn.prepareStatement(sqlQuery2);
+            PreparedStatement pstmt3 = conn.prepareStatement(sqlQuery3);
+            PreparedStatement pstmt4 = conn.prepareStatement(sqlQuery4);
+            PreparedStatement pstmt5 = conn.prepareStatement(sqlQuery5)){
+
+            //Select auf Buch, damit ich mit der BuchID die AusleihungID bekomme
+            pstmt1.setInt(1,bookID);
+            ResultSet rs = pstmt1.executeQuery();
+            while(rs.next()){
+                ausleihungIDSelect = rs.getInt("AusleihungID");
+            }
+
+
+            //Select auf Ausleihung, damit ich mit der AusleihungID die KundenID bekomme
+            pstmt2.setInt(1,ausleihungIDSelect);
+            rs = pstmt2.executeQuery();
+            while(rs.next()){
+                kundenIDSelect = rs.getInt("KundenID");
+            }
+
+            //Update auf die Buch Tabelle, dass AusleihungID für das zurückgegeben Buch wieder null ist
+            pstmt5.setInt(1,bookID);
+            pstmt5.executeUpdate();
+
+            //Löschen von dem Ausleihung Eintrag mit der AusleihungID
+            pstmt4.setInt(1,ausleihungIDSelect);
+            pstmt4.executeUpdate();
+
+
+            //Löschen von dem Kunden der das Buch ausgeliehen hatte und es zurück gegeben möchte
+            pstmt3.setInt(1,kundenIDSelect);
+            pstmt3.executeUpdate();
+
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 }
