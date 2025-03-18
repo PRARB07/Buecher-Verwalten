@@ -147,7 +147,7 @@ public class AssortmentManagementMethods {
 
 
     //Ein Buch Updaten
-    public void updateBook(int buchID,String title, String author, LocalDate publicationDate, String description){
+    public void updateBook(int bookID,String title, String author, LocalDate publicationDate, String description){
         sqlQuery = "Update Buch SET Titel = ?, Autor = ?, Erscheinungsdatum = ?,  Beschreibung = ? WHERE BuchID = ?;";
 
 
@@ -159,7 +159,7 @@ public class AssortmentManagementMethods {
             pstmt.setString(2,author);
             pstmt.setDate(3,java.sql.Date.valueOf(publicationDate));
             pstmt.setString(4,description);
-            pstmt.setInt(5,buchID);
+            pstmt.setInt(5,bookID);
             pstmt.executeUpdate();
 
         }catch(SQLException e){

@@ -1,4 +1,5 @@
 import assortmentManagement.AssortmentManagementMethods;
+import lendingProcessMethods.LendingMethods;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -16,5 +17,8 @@ public class Main {
         //System.out.println(ammmm.listSortiment());
         //System.out.println(ammmm.selectLikeTitel("Herr"));
         //System.out.println("test 2");
+
+        LendingMethods lM = new LendingMethods();
+        lM.lendingBook("Pius","Rarbach","weg","Paderborn","11111",LocalDate.of(2024,3,18),8);
     }
 }
