@@ -9,16 +9,14 @@ public class Book {
     private String author;
     private LocalDate publicationDate;
     private String description;
-    private int genreID;
     private int lendingID;
 
-    public Book(int bookID, String title, String author, LocalDate publicationDate, String description,int genreID,int lendingID) {
+    public Book(int bookID, String title, String author, LocalDate publicationDate, String description,int lendingID) {
         this.bookID = bookID;
         this.title = title;
         this.author = author;
         this.publicationDate = publicationDate;
         this.description = description;
-        this.genreID = genreID;
         this.lendingID = lendingID;
     }
 
