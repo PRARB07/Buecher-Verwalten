@@ -56,22 +56,16 @@ public class AssortmentManagementMethods {
         try(Connection conn = DriverManager.getConnection(this.url,this.user,this.password);
             PreparedStatement pstmt = conn.prepareStatement(sqlQuery)){
             pstmt.setInt(1,buchID);
-
             ResultSet rs = pstmt.executeQuery();
-
-
-
             while(rs.next()){
                 book = new Book(rs.getInt("BuchID"),rs.getString("Titel"),rs.getString("Autor"),rs.getDate("Erscheinungsdatum").toLocalDate(),rs.getString("Beschreibung"),rs.getInt("AusleihungID"));
                 erg.add(book);
             }
-
         }catch(SQLException e){
             e.printStackTrace();
         }
 
         return erg;
-
     }
 
     //Nach einem bestimmten Buch suchen nach Titel

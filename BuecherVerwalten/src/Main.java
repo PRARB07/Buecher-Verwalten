@@ -14,7 +14,7 @@ public class Main {
         //System.out.println(ammmm.selectSingelBook(8));
         //ammmm.selectSingelBook(8);
         //System.out.println(ammmm.listSortiment());
-        System.out.println(ammmm.selectLikeTitel("Herr"));
+        //System.out.println(ammmm.selectLikeTitel("Herr"));
         //System.out.println("test 2");
     }
 }
