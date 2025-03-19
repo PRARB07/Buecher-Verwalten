@@ -1,4 +1,7 @@
 import assortmentManagement.AssortmentManagementMethods;
+import lendingProcessMethods.LendingMethods;
+import swing.MainFrame;
+
 
 import java.sql.SQLException;
 import java.time.LocalDate;
