@@ -1,6 +1,6 @@
-package assortmentManagement.BuecherVerwalten.src.swing;
+package swing;
 
-import assortmentManagement.BuecherVerwalten.src.assortmentManagement.Book;
+import assortmentManagement.Book;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

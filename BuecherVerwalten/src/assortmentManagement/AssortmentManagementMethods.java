@@ -1,4 +1,4 @@
-package assortmentManagement.BuecherVerwalten.src.assortmentManagement;
+package assortmentManagement;
 
 import javax.xml.transform.Result;
 

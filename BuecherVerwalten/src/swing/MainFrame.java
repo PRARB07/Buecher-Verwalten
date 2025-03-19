@@ -1,7 +1,7 @@
-package assortmentManagement.BuecherVerwalten.src.swing;
+package swing;
 
-import assortmentManagement.BuecherVerwalten.src.assortmentManagement.AssortmentManagementMethods;
-import assortmentManagement.BuecherVerwalten.src.assortmentManagement.Book;
+import assortmentManagement.AssortmentManagementMethods;
+import assortmentManagement.Book;
 
 import javax.swing.*;
 import java.awt.*;

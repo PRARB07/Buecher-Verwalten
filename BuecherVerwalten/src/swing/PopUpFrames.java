@@ -1,4 +1,4 @@
-package assortmentManagement.BuecherVerwalten.src.swing;
+package swing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -40,13 +40,9 @@ public class PopUpFrames extends JFrame {
         JButton addCustomer = new JButton("Hinzufügen");
         addCustomer.addActionListener(e -> {
             // TODO INSERT
-            try {
-                MainFrame.assortmentManagement.insertBook(
+            //MainFrame.assortmentManagement.insertBook(
 
-                );
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
+            //);
         });
 
         frame.add(addCustomer);
