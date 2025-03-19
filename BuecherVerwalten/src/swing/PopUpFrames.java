@@ -1,5 +1,7 @@
 package swing;
 
+import com.sun.tools.javac.Main;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
@@ -14,7 +16,7 @@ public class PopUpFrames extends JFrame {
         JFrame frame = new JFrame("Buch ausleihen");
 
         frame.setSize(500, 500);
-        frame.setLayout(new GridLayout(5, 2));
+        frame.setLayout(new GridLayout(6, 2));
 
         frame.add(new JLabel("Vorname"));
         JTextField name = new JTextField();
@@ -39,8 +41,19 @@ public class PopUpFrames extends JFrame {
         frame.add(Buttons.getCancelBtn());
         JButton addCustomer = new JButton("Hinzufügen");
         addCustomer.addActionListener(e -> {
-            // TODO INSERT
-            //MainFrame.assortmentManagement.insertBook(
+            try {
+                MainFrame.lending.lendingBook(
+                        forename.getText(),
+                        name.getText(),
+                        street.getText(),
+                        location.getText(),
+                        plz.getText(),
+                        LocalDate.now(),
+                        MainFrame.selectedBook.getBookID()
+                );
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
 
             //);
         });
@@ -59,68 +72,75 @@ public class PopUpFrames extends JFrame {
     }
 
     /// Verwaltung
-    public static void openAddBookWindow() {
-        JFrame frame = new JFrame("Buch hinzufügen");
-
+    public static void openAddBookWindow(boolean isEdit) {
+        // Frame Window
+        String frameTitle = "Buch " + (isEdit ? "bearbeiten" : "hinzufügen");
+        JFrame frame = new JFrame(frameTitle);
         frame.setSize(500, 500);
         frame.setLayout(new GridLayout(6, 2));
 
-        frame.add(new JLabel("Titel"));
+        // Create TextFields
         JTextField title = new JTextField();
-        frame.add(title);
-
-        frame.add(new JLabel("Autor"));
         JTextField author = new JTextField();
-        frame.add(author);
-
-        // Date
-        frame.add(new JLabel("Erscheinungsdatum"));
-        Date currentDate = new Date(LocalDate.now().getYear(), 1, 1);
-        JSpinner spinner = new JSpinner(new SpinnerDateModel(
-                currentDate,
-                null,
-                null,
-                java.util.Calendar.DAY_OF_MONTH)
-        );
-        JSpinner.DateEditor editor = new JSpinner.DateEditor(spinner, "yyyy.MM.dd");
-        spinner.setEditor(editor);
-        spinner.addChangeListener(e -> {
-            Date selectedDate = (Date) spinner.getValue();
-        });
-
-        JTextField releaseDate = new JTextField();
-        //frame.add(releaseDate);
-        frame.add(spinner);
-
-        frame.add(new JLabel("Genre"));
+        JTextField date = new JTextField(LocalDate.now().toString());
         JTextField genre = new JTextField();
-        frame.add(genre);
-
-        frame.add(new JLabel("Beschreibung"));
         JTextField desc = new JTextField();
-        frame.add(desc);
 
-        frame.add(Buttons.getCancelBtn());
-        JButton addBook = new JButton("Hinzufügen");
-        // Test
-        int[] genreId = new int[] { 1, 2, 3 };
-        addBook.addActionListener(e -> {
-            // TODO INSERT
+        JButton btnAddBook = new JButton(isEdit ? "Aktualisieren" : "Hinzufügen");
+
+        // TODO Genre
+        int[] genreId = new int[] { 1, 2 };
+        btnAddBook.addActionListener(e -> {
             try {
-                MainFrame.assortmentManagement.insertBook(
-                        title.getText(),
-                        author.getText(),
-                        LocalDate.now(),
-                        desc.getText(),
-                        genreId,
-                        0
-                );
+                if (isEdit) {
+                    MainFrame.assortmentManagement.updateBook(
+                            MainFrame.selectedBook.getBookID(),
+                            title.getText(),
+                            author.getText(),
+                            LocalDate.parse(date.getText()),
+                            desc.getText()
+                    );
+                }
+                else {
+                    MainFrame.assortmentManagement.insertBook(
+                            title.getText(),
+                            author.getText(),
+                            LocalDate.parse(date.getText()),
+                            desc.getText(),
+                            genreId,
+                            0
+                    );
+                }
+
+                MainFrame.mainFrame.setEnabled(true);
+                frame.dispose();
             } catch (SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
 
-        frame.add(addBook);
+        // Falls es bearbeiten ist hole Buch schreibe die Buch Daten in die TextField
+        if (isEdit && MainFrame.selectedBook != null) {
+            title.setText(MainFrame.selectedBook.getTitle());
+            author.setText(MainFrame.selectedBook.getAuthor());
+            date.setText(MainFrame.selectedBook.getPublicationDate().toString());
+            desc.setText(MainFrame.selectedBook.getDescription());
+        }
+
+        // Add Components
+        frame.add(new JLabel("Titel"));
+        frame.add(title);
+        frame.add(new JLabel("Autor"));
+        frame.add(author);
+        frame.add(new JLabel("Erscheinungsdatum"));
+        frame.add(date);
+        frame.add(new JLabel("Genre"));
+        frame.add(genre);
+        frame.add(new JLabel("Beschreibung"));
+        frame.add(desc);
+
+        frame.add(Buttons.getCancelBtn());
+        frame.add(btnAddBook);
 
         frame.addWindowListener(new WindowAdapter() {
             @Override
@@ -131,9 +151,5 @@ public class PopUpFrames extends JFrame {
         });
 
         frame.setVisible(true);
-    }
-
-    public static void openEditBookWindow() {
-
     }
 }

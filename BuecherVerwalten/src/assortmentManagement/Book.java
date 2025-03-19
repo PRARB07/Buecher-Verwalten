@@ -27,7 +27,6 @@ public class Book {
         return bookID == book.bookID && author == book.author && Objects.equals(title, book.title) && Objects.equals(publicationDate, book.publicationDate) && Objects.equals(description, book.description);
     }
 
-
     @Override
     public String toString() {
         return title;
@@ -71,5 +70,9 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getLendingID() {
+        return lendingID;
     }
 }

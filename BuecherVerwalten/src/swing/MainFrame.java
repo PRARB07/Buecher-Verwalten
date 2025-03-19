@@ -5,12 +5,14 @@ import assortmentManagement.Book;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
     public static AssortmentManagementMethods assortmentManagement = new AssortmentManagementMethods();
     public static lendingProcessMethods.LendingMethods lending = new lendingProcessMethods.LendingMethods();
     public static JFrame mainFrame;
     public static Book selectedBook;
+    public static ArrayList<Book> Books = new ArrayList<>();
 
     public void mainFrame() {
         // Main Window
@@ -21,8 +23,6 @@ public class MainFrame extends JFrame {
 
         // Tabs
         JTabbedPane tabbedPane = new JTabbedPane();
-
-        // Add Tabs
         tabbedPane.addTab("Verleihprozess", getTabVerleih());
         tabbedPane.addTab("Bücherverwaltung", getTabVerwaltung());
 
