@@ -1,7 +1,4 @@
-package assortmentManagement.BuecherVerwalten.src.Swing;
-
-import assortmentManagement.BuecherVerwalten.src.assortmentManagement.AssortmentManagementMethods;
-import assortmentManagement.BuecherVerwalten.src.assortmentManagement.Book;
+package assortmentManagement.BuecherVerwalten.src.swing;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,59 +8,58 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class Windows extends JFrame {
-    public static AssortmentManagementMethods assortmentManagement = new AssortmentManagementMethods();
-
-    ///  Main Window
-    public static JFrame mainFrame;
-    public static Book selectedBook;
-
-    public static void StartSwing() {
-        // Main Window
-        mainFrame = new JFrame("Bücher verwaltung");
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //mainWindow.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        mainFrame.setSize(800, 600);
-        mainFrame.setLocationRelativeTo(null);
-
-        // Tabs
-        JTabbedPane tabbedPane = new JTabbedPane();
-
-        // Add Tabs
-        tabbedPane.addTab("Verleihprozess", getTabVerleih());
-        tabbedPane.addTab("Bücherverwaltung", getTabVerwaltung());
-
-        // Frame loading
-        mainFrame.add(tabbedPane);
-        mainFrame.pack();
-        mainFrame.setVisible(true);
-    }
-
-    private static JPanel getTabVerleih() {
-        JPanel tabVerleih = new JPanel();
-
-        tabVerleih.setLayout(Components.getMainLayout());
-
-        tabVerleih.add(Panels.getSearchAndBookListPanel(false));
-        tabVerleih.add(Panels.getRentalPanel());
-
-        return tabVerleih;
-    }
-
-    private static JPanel getTabVerwaltung() {
-        JPanel tabVerwaltung = new JPanel();
-
-        tabVerwaltung.setLayout(Components.getMainLayout());
-
-        tabVerwaltung.add(Panels.getSearchAndBookListPanel(true));
-        tabVerwaltung.add(Panels.getManagementPanel());
-
-        return tabVerwaltung;
-    }
-
+public class PopUpFrames extends JFrame {
     /// Ausleihung
     public static void openCustomerWindow() {
+        JFrame frame = new JFrame("Buch ausleihen");
 
+        frame.setSize(500, 500);
+        frame.setLayout(new GridLayout(5, 2));
+
+        frame.add(new JLabel("Vorname"));
+        JTextField name = new JTextField();
+        frame.add(name);
+
+        frame.add(new JLabel("Nachname"));
+        JTextField forename = new JTextField();
+        frame.add(forename);
+
+        frame.add(new JLabel("Straße"));
+        JTextField street = new JTextField();
+        frame.add(street);
+
+        frame.add(new JLabel("Ort"));
+        JTextField location = new JTextField();
+        frame.add(location);
+
+        frame.add(new JLabel("PLZ"));
+        JTextField plz = new JTextField();
+        frame.add(plz);
+
+        frame.add(Buttons.getCancelBtn());
+        JButton addCustomer = new JButton("Hinzufügen");
+        addCustomer.addActionListener(e -> {
+            // TODO INSERT
+            try {
+                MainFrame.assortmentManagement.insertBook(
+
+                );
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+
+        frame.add(addCustomer);
+
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                MainFrame.mainFrame.setEnabled(true);
+                super.windowClosing(e);
+            }
+        });
+
+        frame.setVisible(true);
     }
 
     /// Verwaltung
@@ -73,16 +69,16 @@ public class Windows extends JFrame {
         frame.setSize(500, 500);
         frame.setLayout(new GridLayout(6, 2));
 
-        frame.add(Components.getLabel("Titel"));
+        frame.add(new JLabel("Titel"));
         JTextField title = new JTextField();
         frame.add(title);
 
-        frame.add(Components.getLabel("Autor"));
+        frame.add(new JLabel("Autor"));
         JTextField author = new JTextField();
         frame.add(author);
 
         // Date
-        frame.add(Components.getLabel("Erscheinungsdatum"));
+        frame.add(new JLabel("Erscheinungsdatum"));
         Date currentDate = new Date(LocalDate.now().getYear(), 1, 1);
         JSpinner spinner = new JSpinner(new SpinnerDateModel(
                 currentDate,
@@ -100,11 +96,11 @@ public class Windows extends JFrame {
         //frame.add(releaseDate);
         frame.add(spinner);
 
-        frame.add(Components.getLabel("Genre"));
+        frame.add(new JLabel("Genre"));
         JTextField genre = new JTextField();
         frame.add(genre);
 
-        frame.add(Components.getLabel("Beschreibung"));
+        frame.add(new JLabel("Beschreibung"));
         JTextField desc = new JTextField();
         frame.add(desc);
 
@@ -115,7 +111,7 @@ public class Windows extends JFrame {
         addBook.addActionListener(e -> {
             // TODO INSERT
             try {
-                assortmentManagement.insertBook(
+                MainFrame.assortmentManagement.insertBook(
                         title.getText(),
                         author.getText(),
                         LocalDate.now(),
@@ -133,7 +129,7 @@ public class Windows extends JFrame {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                Windows.mainFrame.setEnabled(true);
+                MainFrame.mainFrame.setEnabled(true);
                 super.windowClosing(e);
             }
         });

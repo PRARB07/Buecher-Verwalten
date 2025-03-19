@@ -30,12 +30,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book: " +
-                "bookID=" + bookID +
-                ", title='" + title + '\'' +
-                ", author=" + author +
-                ", publicationDate='" + publicationDate + '\'' +
-                ", description='" + description;
+        return title;
     }
 
     public int getBookID() {

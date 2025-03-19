@@ -1,4 +1,4 @@
-package assortmentManagement.BuecherVerwalten.src.Swing;
+package assortmentManagement.BuecherVerwalten.src.swing;
 
 import assortmentManagement.BuecherVerwalten.src.assortmentManagement.AssortmentManagementMethods;
 
@@ -7,13 +7,13 @@ import javax.swing.*;
 public class Buttons extends JFrame {
     public static AssortmentManagementMethods assortmentManagement = new AssortmentManagementMethods();
 
-    ///  Ausleihen
+    /// Ausleihen
     public static JButton getBorrowBtn() {
         JButton button = new JButton("Buch Ausleihen");
 
         button.addActionListener(e -> {
-            Windows.openCustomerWindow();
-            Windows.mainFrame.setEnabled(false);
+            PopUpFrames.openCustomerWindow();
+            MainFrame.mainFrame.setEnabled(false);
         });
 
         return button;
@@ -24,8 +24,8 @@ public class Buttons extends JFrame {
         JButton button = new JButton("Buch hinzufügen");
 
         button.addActionListener(e -> {
-            Windows.openAddBookWindow();
-            Windows.mainFrame.setEnabled(false);
+            PopUpFrames.openAddBookWindow();
+            MainFrame.mainFrame.setEnabled(false);
         });
 
         return button;
@@ -35,8 +35,8 @@ public class Buttons extends JFrame {
         JButton button = new JButton("Bearbeiten");
 
         button.addActionListener(e -> {
-            Windows.openEditBookWindow();
-            Windows.mainFrame.setEnabled(false);
+            PopUpFrames.openEditBookWindow();
+            MainFrame.mainFrame.setEnabled(false);
         });
 
         return button;
@@ -46,9 +46,9 @@ public class Buttons extends JFrame {
         JButton button = new JButton("Löschen");
 
         button.addActionListener(e -> {
-            Windows.mainFrame.setEnabled(false);
+            MainFrame.mainFrame.setEnabled(false);
             int choice = JOptionPane.showConfirmDialog(
-                    Windows.mainFrame,
+                    MainFrame.mainFrame,
                     "Wollen Sie das Buch wirklich löschen?",
                     "Warnung",
                     JOptionPane.OK_CANCEL_OPTION,
@@ -56,10 +56,10 @@ public class Buttons extends JFrame {
             );
 
             if (choice == JOptionPane.OK_OPTION) {
-                assortmentManagement.deleteBook(Windows.selectedBook.getBookID());
+                assortmentManagement.deleteBook(MainFrame.selectedBook.getBookID());
             }
 
-            Windows.mainFrame.setEnabled(true);
+            MainFrame.mainFrame.setEnabled(true);
         });
 
         return button;
@@ -70,16 +70,16 @@ public class Buttons extends JFrame {
         JButton button = new JButton("Abbrechen");
 
         button.addActionListener(e -> {
-            Windows.mainFrame.setEnabled(true);
+            MainFrame.mainFrame.setEnabled(true);
             int choice = JOptionPane.showConfirmDialog(
-                    Windows.mainFrame,
+                    MainFrame.mainFrame,
                     "Wollen Sie wirklich abbrechen?",
                     "Cancel",
                     JOptionPane.YES_NO_OPTION
             );
             if (choice == JOptionPane.YES_OPTION) {
-                Windows.mainFrame.setEnabled(true);
-                Windows.mainFrame.dispose();
+                MainFrame.mainFrame.setEnabled(true);
+                MainFrame.mainFrame.dispose();
             }
         });
 

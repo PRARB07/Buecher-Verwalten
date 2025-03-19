@@ -1,12 +1,12 @@
-package assortmentManagement;
+package assortmentManagement.BuecherVerwalten.src.assortmentManagement;
 
 import javax.xml.transform.Result;
+
 import java.beans.Statement;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.time.LocalDate;
-
 
 public class AssortmentManagementMethods {
 
@@ -47,25 +47,28 @@ public class AssortmentManagementMethods {
 
 
     //Nach einem bestimmten Buch mit der BuchID suchen
-    public ArrayList<Book> selectSingelBook(int buchID) throws SQLException{
+    public Book selectSingelBook(int buchID) throws SQLException{
         sqlQuery = "SELECT * FROM buch WHERE buchID = ?";
-        ArrayList<Book> erg = new ArrayList<>();
-        Book book;
-
+        Book book = null;
 
         try(Connection conn = DriverManager.getConnection(this.url,this.user,this.password);
             PreparedStatement pstmt = conn.prepareStatement(sqlQuery)){
             pstmt.setInt(1,buchID);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){
-                book = new Book(rs.getInt("BuchID"),rs.getString("Titel"),rs.getString("Autor"),rs.getDate("Erscheinungsdatum").toLocalDate(),rs.getString("Beschreibung"),rs.getInt("AusleihungID"));
-                erg.add(book);
+                return new Book(rs.getInt("BuchID"),
+                        rs.getString("Titel"),
+                        rs.getString("Autor"),
+                        rs.getDate("Erscheinungsdatum").toLocalDate(),
+                        rs.getString("Beschreibung"),
+                        rs.getInt("AusleihungID")
+                );
             }
         }catch(SQLException e){
             e.printStackTrace();
         }
 
-        return erg;
+        return null;
     }
 
     //Nach einem bestimmten Buch suchen nach Titel
