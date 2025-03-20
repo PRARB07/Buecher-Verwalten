@@ -15,7 +15,7 @@ public class PopUpFrames extends JFrame {
     public static void openCustomerWindow() {
         JFrame frame = new JFrame("Buch ausleihen");
 
-        frame.setSize(500, 500);
+        frame.setSize(300, 350);
         frame.setLayout(new GridLayout(6, 2));
 
         frame.add(getLblTextCenter("Vorname"));
@@ -76,7 +76,7 @@ public class PopUpFrames extends JFrame {
         // Frame Window
         String frameTitle = "Buch " + (isEdit ? "bearbeiten" : "hinzufügen");
         JFrame frame = new JFrame(frameTitle);
-        frame.setSize(500, 500);
+        frame.setSize(300, 350);
         frame.setLayout(new GridLayout(6, 2));
 
         // Create TextFields

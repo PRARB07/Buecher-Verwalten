@@ -5,6 +5,7 @@ import assortmentManagement.Book;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
@@ -15,6 +16,13 @@ public class MainFrame extends JFrame {
     public static ArrayList<Book> Books = new ArrayList<>();
 
     public void mainFrame() {
+// Test
+//        try {
+//            MainFrame.selectedBook = MainFrame.assortmentManagement.selectSingelBook(8);
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+
         // Main Window
         mainFrame = new JFrame("Bücher verwaltung");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
