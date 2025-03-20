@@ -58,7 +58,9 @@ public class Panels extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(2, 1));
         if (addBook) {
-            panel.add(Buttons.getAddBtn());
+            JPanel btnPanel = new JPanel();
+            btnPanel.add(Buttons.getAddBtn());
+            panel.add(btnPanel);
         }
 
         ArrayList<Book> sortiment = MainFrame.assortmentManagement.listSortiment();
@@ -89,7 +91,10 @@ public class Panels extends JPanel {
         panel.setLayout(new GridLayout(2, 1));
 
         panel.add(Panels.getBookViewPanel());
-        panel.add(Buttons.getBorrowBtn());
+
+        JPanel btnPanel = new JPanel();
+        btnPanel.add(Buttons.getBorrowBtn());
+        panel.add(btnPanel);
 
         return panel;
     }
@@ -97,10 +102,14 @@ public class Panels extends JPanel {
     /// Verwaltungs Panel für die Bücher
     public static JPanel getManagementPanel() {
         JPanel panel = new JPanel();
-
+        panel.setLayout(new GridLayout(2, 1));
         panel.add(Panels.getBookViewPanel());
-        panel.add(Buttons.getDeleteBtn());
-        panel.add(Buttons.getEditBtn());
+
+        JPanel btnPanel = new JPanel();
+        btnPanel.add(Buttons.getDeleteBtn());
+        btnPanel.add(Buttons.getEditBtn());
+
+        panel.add(btnPanel);
 
         return panel;
     }

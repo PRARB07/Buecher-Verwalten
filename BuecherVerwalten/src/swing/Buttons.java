@@ -3,6 +3,7 @@ package swing;
 import assortmentManagement.AssortmentManagementMethods;
 
 import javax.swing.*;
+import java.awt.*;
 import java.sql.SQLException;
 
 public class Buttons extends JFrame {
@@ -12,7 +13,7 @@ public class Buttons extends JFrame {
     public static JButton getBorrowBtn() {
         JButton button = new JButton("Buch " + (MainFrame.selectedBook != null &&
                 MainFrame.selectedBook.getLendingID() > 0 ? "annehmen" : "ausleihen"));
-
+        button.setPreferredSize(new Dimension(150, 50));
         button.addActionListener(e -> {
             // Ausleihen
             if (MainFrame.selectedBook.getLendingID() <= 0) {

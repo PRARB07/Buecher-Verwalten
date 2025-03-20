@@ -18,23 +18,23 @@ public class PopUpFrames extends JFrame {
         frame.setSize(500, 500);
         frame.setLayout(new GridLayout(6, 2));
 
-        frame.add(new JLabel("Vorname"));
+        frame.add(getLblTextCenter("Vorname"));
         JTextField name = new JTextField();
         frame.add(name);
 
-        frame.add(new JLabel("Nachname"));
+        frame.add(getLblTextCenter("Nachname"));
         JTextField forename = new JTextField();
         frame.add(forename);
 
-        frame.add(new JLabel("Straße"));
+        frame.add(getLblTextCenter("Straße"));
         JTextField street = new JTextField();
         frame.add(street);
 
-        frame.add(new JLabel("Ort"));
+        frame.add(getLblTextCenter("Ort"));
         JTextField location = new JTextField();
         frame.add(location);
 
-        frame.add(new JLabel("PLZ"));
+        frame.add(getLblTextCenter("PLZ"));
         JTextField plz = new JTextField();
         frame.add(plz);
 
@@ -128,15 +128,15 @@ public class PopUpFrames extends JFrame {
         }
 
         // Add Components
-        frame.add(new JLabel("Titel"));
+        frame.add(getLblTextCenter("Titel"));
         frame.add(title);
-        frame.add(new JLabel("Autor"));
+        frame.add(getLblTextCenter("Autor"));
         frame.add(author);
-        frame.add(new JLabel("Erscheinungsdatum"));
+        frame.add(getLblTextCenter("Erscheinungsdatum"));
         frame.add(date);
-        frame.add(new JLabel("Genre"));
+        frame.add(getLblTextCenter("Genre"));
         frame.add(genre);
-        frame.add(new JLabel("Beschreibung"));
+        frame.add(getLblTextCenter("Beschreibung"));
         frame.add(desc);
 
         frame.add(Buttons.getCancelBtn());
@@ -151,5 +151,11 @@ public class PopUpFrames extends JFrame {
         });
 
         frame.setVisible(true);
+    }
+
+    private static JLabel getLblTextCenter(String text) {
+        JLabel lbl = new JLabel(text);
+        lbl.setHorizontalAlignment(SwingConstants.CENTER);
+        return lbl;
     }
 }
